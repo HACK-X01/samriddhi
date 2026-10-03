@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Samriddhi Era ✨ (Taylor's Version)</title>
+  <meta name="description" content="A special confession website for Samriddhi (Gullu) - filled with coffee, Taylor Swift lyrics, and memories.">
+  <meta name="theme-color" content="#120c18">
+
+  <!-- Google Fonts: Editorial Romantic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Ambient Glow & Particles -->
+  <canvas id="particleCanvas"></canvas>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Floating Audio Player (Taylor Swift Luxury Vinyl Deck) -->
+  <aside class="vinyl-player-widget" id="vinylWidget" aria-label="Taylor Swift Audio Player">
+    
+    <!-- Collapsible Mini Lyric Video Drawer -->
+    <div class="video-drawer" id="videoDrawer">
+      <div class="video-drawer-header">
+        <span class="video-title" id="videoDrawerTitle">✨ Taylor's Lyric Video</span>
+        <button class="video-close-btn" id="videoCloseBtn" aria-label="Close video drawer">✕</button>
+      </div>
+      <div class="video-frame-container" id="videoFrameContainer">
+        <div id="youtubePlayerHost"></div>
+      </div>
+    </div>
+
+    <!-- Vinyl Disc -->
+    <div class="vinyl-disc" id="vinylDisc" title="Tap to Play/Pause Taylor Swift">
+      <div class="vinyl-grooves"></div>
+      <div class="vinyl-center-label">
+        <span class="vinyl-icon">✨</span>
+      </div>
+    </div>
+
+    <!-- Vinyl Track Info & Controls -->
+    <div class="vinyl-info">
+      <div class="vinyl-status-row">
+        <div class="visualizer-bars" id="visualizerBars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="now-playing-badge" id="nowPlayingBadge">Taylor's Version</span>
+      </div>
+      <span class="track-title" id="trackTitle">Enchanted (Taylor's Version)</span>
+      
+      <!-- Song Pills for 1-Tap Switching -->
+      <div class="track-selector" id="trackSelector">
+        <button class="song-pill active" data-song="enchanted">✨ Enchanted</button>
+        <button class="song-pill" data-song="lover">💖 Lover</button>
+        <button class="song-pill" data-song="lovestory">🏰 Love Story</button>
+        <button class="song-pill" data-song="youbelongwithme">💛 You Belong With Me</button>
+      </div>
+    </div>
+
+    <!-- Player Action Buttons -->
+    <div class="player-actions">
+      <button class="player-action-btn" id="toggleVideoBtn" title="Toggle Lyric Video">
+        <span class="action-icon">📺</span>
+      </button>
+      <button class="player-action-btn" id="customAudioBtn" title="Play your own MP3">
+        <span class="action-icon">📁</span>
+      </button>
+      <button class="music-toggle-btn pulse-play" id="musicToggleBtn" aria-label="Play or pause background music">
+        <span id="playIcon">▶</span>
+      </button>
+    </div>
+
+    <!-- Hidden file input for custom MP3 upload -->
+    <input type="file" id="customAudioInput" accept="audio/*" style="display:none;">
+  </aside>
+
+  <!-- Top Announcement Bar -->
+  <header class="top-announcement">
+    <span class="sparkle-tag">✨ Taylor's Version • The Samriddhi Edition ☕</span>
+  </header>
+
+  <main class="main-wrapper">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-badge">
+        <span class="coffee-bean-icon">☕</span>
+        <span>For Gullu, with all my heart</span>
+      </div>
+
+      <h1 class="hero-title">
+        The <span class="highlight-name">Samriddhi</span> Era
+      </h1>
+
+      <p class="hero-subtitle">
+        A love story written in iced lattes, screaming the bridges to Taylor Swift songs, and endless coffee dates.
+      </p>
+
+      <!-- Star Hero Portrait (Photo #1 Spotlight) -->
+      <div class="hero-portrait-container">
+        <div class="portrait-card">
+          <div class="portrait-frame">
+            <img id="heroImage" src="images/gullu-1.jpg" alt="Samriddhi (Gullu)" onerror="handleImageError(this, 1)">
+            <div class="portrait-tape top-tape"></div>
+          </div>
+          <div class="portrait-caption">
+            <span class="caption-handwritten">The prettiest smile in the universe ✨</span>
+            <span class="caption-lyric">"I was enchanted to meet you..."</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Counter (The Gullu Meter) -->
+      <div class="metrics-grid">
+        <div class="metric-pill">
+          <span class="metric-num">43</span>
+          <span class="metric-label">Memories of You</span>
+        </div>
+        <div class="metric-pill">
+          <span class="metric-num">1,000+</span>
+          <span class="metric-label">Cups of Coffee Needed</span>
+        </div>
+        <div class="metric-pill">
+          <span class="metric-num">∞</span>
+          <span class="metric-label">Coffee Dates Promised</span>
+        </div>
+      </div>
+
+      <div class="scroll-cue">
+        <span>Scroll through your story</span>
+        <div class="bounce-arrow">↓</div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE ERAS POLAROID CAROUSEL (Touch Highlights) -->
+    <section class="carousel-section" id="eras-carousel">
+      <div class="section-header">
+        <span class="section-tag">HER GREATEST HITS</span>
+        <h2 class="section-title">The Many Shades of Gullu</h2>
+        <p class="section-desc">Swipe through some of my favorite moments of you.</p>
+      </div>
+
+      <div class="polaroid-carousel-track" id="carouselTrack">
+        <!-- Dynamically populated or static cards with touch scrolling -->
+      </div>
+      <div class="swipe-hint">👈 Swipe left & right 👉</div>
+    </section>
+
+    <!-- SECTION 3: THE VIP GOLDEN PASS (Exclusive Coffee Clause) -->
+    <section class="perks-section" id="vip-ticket">
+      <div class="ticket-card" id="scratchTicket">
+        <div class="ticket-sparkles">✨ ✨ ✨</div>
+        <div class="ticket-badge">VIP GOLDEN PASS</div>
+        <h3 class="ticket-title">The Unlimited Coffee Clause</h3>
+        <p class="ticket-text">
+          This pass certifies that <strong>Samriddhi (Gullu)</strong> is entitled to unlimited cups of coffee, 
+          extra caramel lattes, and midnight drives anytime she is happy, stressed, or just bored.
+        </p>
+        <div class="ticket-details">
+          <span><strong>Validity:</strong> Lifetime & Forever</span>
+          <span><strong>Sponsor:</strong> Your Best Friend</span>
+        </div>
+        <div class="ticket-seal">☕ APPROVED ☕</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: THE FULL 43-PHOTO GALLERY -->
+    <section class="gallery-section" id="gallery">
+      <div class="section-header">
+        <span class="section-tag">THE COMPLETE VAULT</span>
+        <h2 class="section-title">43 Reasons You're Unforgettable</h2>
+        <p class="section-desc">Every photograph of you holds a special kind of magic.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all">All 43 💖</button>
+        <button class="filter-btn" data-filter="smiles">Radiant Smiles 🌸</button>
+        <button class="filter-btn" data-filter="coffee">Coffee Vibe ☕</button>
+        <button class="filter-btn" data-filter="queen">Main Character 👑</button>
+        <button class="filter-btn" data-filter="cute">Cute & Silly 🤪</button>
+      </div>
+
+      <!-- 2-Column Responsive Masonry Grid -->
+      <div class="gallery-masonry" id="galleryGrid">
+        <!-- Populated via script.js for all 43 photos -->
+      </div>
+    </section>
+
+    <!-- SECTION 5: THE EMOTIONAL TRANSITION -->
+    <section class="transition-section">
+      <div class="feather-divider">🪶</div>
+      <blockquote class="poetic-quote">
+        "They say best friends make the worst crushes... because you risk losing everything.<br>
+        <strong>But watching you exist made it impossible not to fall.</strong>"
+      </blockquote>
+      <div class="flicker-candle">🕯️</div>
+    </section>
+
+    <!-- SECTION 6: THE WAX-SEALED CONFESSION ENVELOPE -->
+    <section class="confession-section" id="confession">
+      <div class="envelope-wrapper">
+        <div class="envelope" id="envelope">
+          <div class="envelope-back"></div>
+          
+          <!-- Letter Paper Inside -->
+          <div class="letter-paper" id="letterPaper">
+            <div class="letter-stamp">TS • 1989</div>
+            <div class="letter-header">
+              <span class="letter-date">October, 2026 • Taylor's Version</span>
+              <h3 class="letter-salutation">Oyeee Gullu,</h3>
+            </div>
+            
+            <div class="letter-body">
+              <p>Tum mujhe khud se bhi jada aache se janti ho.</p>
+              
+              <p>Hume mile hue bas kch din hue h or dono ko hi itna attachment, why? 🤔</p>
+              
+              <p>I love the way you look at me. I love the way you scold me. Kch galtiya me jaan bujh k krta hu taki tum dato, coz I don't have anyone else jo mujhpe aise haq jatata ho. <strong>Thank you for coming in my life.</strong></p>
+              
+              <p>I'm in love with your beautiful eyes. I love your smile. I love that pout face of yours <em>(Haan wahi suar waalaa 🐷)</em>. You're really a Pout Queen.</p>
+              
+              <p>Somewhere along the way, between your bright laughter, the sweet way your eyes light up when you're happy, and all the small, effortless everyday moments... my feelings quietly changed.</p>
+              
+              <p>You didn't just stay my best friend. <strong>You became the person I look for first in every single room.</strong></p>
+              
+              <p class="taylor-lyric-quote">
+                "I was enchanted to meet you...<br>
+                Please don't be in love with someone else."
+              </p>
+              
+              <p>I value our bond more than words could ever describe, but I want to be completely honest with my heart: I don't just want to be your friend from afar. <strong>I want to take you out on a real date — just a whole day with me. Just you and me.</strong></p>
+              
+              <p class="special-date-wish">
+                <em>(Let's recreate something like: "Hum tum ek kamre me band ho aur chabhi kho jaye" 😉🗝️)</em>
+              </p>
+              
+              <p class="letter-signoff">
+                Will you give us a chance? ❤️<br>
+                <span class="sender-name">— Yours Always</span>
+              </p>
+
+              <!-- Interactive Confession Buttons -->
+              <div class="confession-buttons">
+                <button class="confess-btn btn-yes" id="btnYes">
+                  Yes, let's go on a date! ❤️
+                </button>
+                <button class="confess-btn btn-coffee" id="btnCoffee">
+                  Only if you buy the Coffee 😉
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="envelope-front"></div>
+          
+          <!-- Top Flap & Wax Seal -->
+          <div class="envelope-top" id="envelopeFlap"></div>
+          <div class="wax-seal" id="waxSeal" title="Tap to break seal">
+            <div class="seal-inner">
+              <span class="seal-letter">G</span>
+            </div>
+            <span class="seal-prompt">Tap Seal to Open 💌</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CELEBRATION MODAL (Fires on Choice) -->
+  <div class="celebration-modal" id="celebrationModal">
+    <div class="modal-card">
+      <button class="modal-dismiss-x" id="modalCloseBtn" aria-label="Close modal">✕</button>
+      <div class="modal-confetti-icon">🎉 ☕ 💖 ✨</div>
+      <h2 class="modal-title" id="modalTitle">It's a Date!</h2>
+      
+      <!-- Choice Badge -->
+      <div class="selected-choice-badge" id="selectedChoiceBadge">
+        <span class="badge-label">Gullu's Choice:</span>
+        <span class="badge-text" id="selectedChoiceText">Yes, let's go on a date! ❤️</span>
+      </div>
+
+      <p class="modal-text" id="modalText">
+        The coffee is brewing, and Taylor Swift is on repeat.<br>
+        <strong>Tap below to send your answer directly on WhatsApp! 🥰</strong>
+      </p>
+
+      <div class="modal-buttons-row">
+        <a href="#" class="whatsapp-btn" id="modalWhatsappBtn" target="_blank" rel="noopener noreferrer">
+          <span class="whatsapp-icon">💬</span> Send on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL FOR PHOTO EXPANSION (STORY MODE) -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close modal">&times;</button>
+    <div class="lightbox-content">
+      <button class="lightbox-nav-btn prev-btn" id="lightboxPrev" aria-label="Previous photo">❮</button>
+      <button class="lightbox-nav-btn next-btn" id="lightboxNext" aria-label="Next photo">❯</button>
+      <img id="lightboxImg" src="" alt="Gullu memory expanded">
+      <div class="lightbox-caption">
+        <p id="lightboxText" class="lightbox-title"></p>
+        <span id="lightboxLyric" class="lightbox-lyric-tag"></span>
+      </div>
+      <div class="lightbox-actions">
+        <button class="heart-burst-btn" id="heartBurstBtn">
+          ❤️ <span id="heartCount">Love this photo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Crafted exclusively for <strong>Samriddhi (Gullu)</strong> • Forever & Always (Taylor's Version)</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

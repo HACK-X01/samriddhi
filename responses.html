@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gullu's Confession Response 💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0d0814;
+      color: #fdfaf6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(26, 17, 36, 0.95);
+      border: 1px solid rgba(232, 185, 96, 0.4);
+      border-radius: 20px;
+      padding: 30px 24px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(232, 185, 96, 0.2);
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: #e8b960;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin: 15px 0;
+      letter-spacing: 0.5px;
+    }
+    .status-waiting {
+      background: rgba(255, 255, 255, 0.08);
+      color: #b39ddb;
+      border: 1px solid rgba(179, 157, 219, 0.3);
+    }
+    .status-answered {
+      background: rgba(76, 175, 80, 0.2);
+      color: #81c784;
+      border: 1px solid rgba(76, 175, 80, 0.5);
+    }
+    .choice-box {
+      background: rgba(232, 185, 96, 0.1);
+      border: 1px dashed #e8b960;
+      border-radius: 14px;
+      padding: 16px;
+      margin: 20px 0;
+    }
+    .choice-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #e8b960;
+      font-weight: 700;
+    }
+    .choice-val {
+      font-size: 1.25rem;
+      font-family: 'Playfair Display', serif;
+      color: #fff;
+      margin: 8px 0 4px;
+    }
+    .time-val {
+      font-size: 0.75rem;
+      color: #b39ddb;
+    }
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #e8b960;
+      margin-right: 6px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.3; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+      100% { opacity: 0.3; transform: scale(0.9); }
+    }
+    .refresh-hint {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 15px;
+    }
+    .btn-return {
+      display: inline-block;
+      margin-top: 15px;
+      color: #e8b960;
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="font-size: 2.2rem; margin-bottom: 8px;">💌 ☕ ✨</div>
+    <h1>Confession Tracker</h1>
+    <p style="font-size: 0.85rem; color: #b39ddb;">Real-time status of Gullu's answer</p>
+
+    <div id="statusContent">
+      <div class="status-badge status-waiting">
+        <span class="pulse-dot"></span> Waiting for Gullu to open & click...
+      </div>
+      <p style="font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.5; margin: 15px 0;">
+        Jab bhi Gullu website par kissi bhi button par tap karegi, uska answer yahan live appear ho jayega!
+      </p>
+    </div>
+
+    <p class="refresh-hint">⚡ Live auto-checking every 2 seconds...</p>
+    <a href="/" class="btn-return">← Back to Main Website</a>
+  </div>
+
+  <script>
+    async function checkResponse() {
+      try {
+        const res = await fetch('/responses.json?t=' + Date.now());
+        if (!res.ok) return;
+        const list = await res.json();
+        if (Array.isArray(list) && list.length > 0) {
+          const latest = list[list.length - 1];
+          document.getElementById('statusContent').innerHTML = `
+            <div class="status-badge status-answered">🎉 ANSWER RECEIVED!</div>
+            <div class="choice-box">
+              <div class="choice-title">Selected Button:</div>
+              <div class="choice-val">"${latest.choice}"</div>
+              <div class="time-val">🕒 ${latest.time}</div>
+            </div>
+            <p style="font-size: 0.95rem; color: #ff80ab; font-weight: 600;">
+              Congratulations! It's a date! ❤️☕
+            </p>
+          `;
+        }
+      } catch (e) {}
+    }
+
+    checkResponse();
+    setInterval(checkResponse, 2000);
+  </script>
+</body>
+</html>
